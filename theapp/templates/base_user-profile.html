@@ -1,0 +1,24 @@
+{% extends 'base_user.html' %}
+{% load static %}
+
+{% block title %}
+    Add Books | {{ user.username }}
+{% endblock %}
+
+{% block active %}
+    <li class='user-active'><a href='/profile'>profile</a></li>
+    <li><a href='/library'>library</a></li>
+    <li><a href='/add-books'>add books</a></li>
+{% endblock %}             
+
+{% block content %}
+    <div class='content set-profile'>
+        <h1>Hey {{ profile.username }}</h1>
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class='button' type='submit'>update</button>
+        </form>
+    </div>
+{% endblock %}

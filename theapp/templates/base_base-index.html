@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Mabu
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <section class='recc'>
+        <form class='search' method='POST' action='search/'>
+            {% csrf_token %}
+            <input type='text' placeholder='Search books' name='book'>
+            <button type='submit'>search</button>
+        </form>
+        <h1>For you</h1>
+        <br>
+        <div class='lib-container'>
+            {% for book in ran_rec %}
+                <div class='lib-item'>
+                    <a href='book/{{ book.id }}'>
+                        <img src={{ book.cover.url }} width='215' height='305' style="object-fit: cover;">
+                        <span>{{ book.title }}</span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+        <section class='hero'>
+            <h1>Know your journey, your world, and your adventure</h1>
+        </section>
+        <section class='menu'>
+            <ul>
+                <li><a href=#>what is mabu?</a></li>
+                <li><a href='/login/'>join us</a></li>
+                <li><a href=#>know us</a></li>
+            </ul>
+        </section>
+
+        <section class='about'>
+            <h1>what is mabu?</h1>
+            <div class='definition'>
+                <img src={% static 'img/about.png' %} height=300 alt='novels'>
+                <div>
+                    <p>
+                        “Know your <span class='accent'>journey</span>, your <span class='accent'>world</span>, and your <span class='accent'>adventure</span>” 
+                        <br><br>
+                        Mabu is a tool designed and created to <span style="color: white;" class='bold'>track</span> your reading progress. With this tool you can track your reading progress by volume, chapter, and total of how many books you've read.
+                    </p>
+                </div>
+            </div>
+            <div class='feature'>
+                <!-- NEED UI OF FEATURE, LOGIN, LIBRARY, NOTES, AND MORE -->
+            </div>
+        </section>
+        <br>
+        <section class='joinus'>
+            <h1>Join Us</h1>
+            <br>
+            <p>Add your books and track your progress reading, add a diary about your books, and more</p>
+            <br>
+            <a href="/signup">Create Account</a>
+            <br>
+            <br>
+            <small>It's totally free!!</small>
+        </section>
+        <br>
+    {% endif %}
+
+{% endblock %}

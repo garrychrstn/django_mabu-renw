@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+    <head>
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+            
+        <link rel="stylesheet" href="https://use.typekit.net/oov2wcw.css">  {% comment %} Source for using "Century Gothic Font {% endcomment %}
+        <link rel="stylesheet" type="text/css" href={% static 'css/base.css' %}>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <a href='#'>follow us</a>
+            <a href='/'>
+                <img src={% static 'img/mabu.png' %} height=45>
+            </a>
+            {% if user %}
+                <div class='dropdown'>
+                    <button>{{ user.username }}</button>
+                    <div class='dropdown-content'>
+                        <a href='#'>profile</a>
+                        <a href='/library'>library</a>
+                        <a href='/add-books'>add books</a>
+                        <a href='/logout'>logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href='/login/'>join us</a>
+            {% endif %}
+        </header>
+        <section class='settings'>
+            <h2>menu</h2>
+            <div class='user'>
+
+                <div class='map'>
+                    <ul>
+                        {% block active %}
+                        <li><a href='/profile'>profile</a></li>
+                        <li><a href='/library'>library</a></li>
+                        <li><a href='/books'>add books</a></li>
+                        {% endblock %}
+                    </ul>
+                </div>
+
+                {% block content %}
+                {% endblock %}
+            </div>
+        </section>
+    </body>
+</html>

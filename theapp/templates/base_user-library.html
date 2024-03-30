@@ -1,0 +1,51 @@
+{% extends 'base_user.html' %}
+{% load static %}
+
+{% block title %}
+    Library | {{ user.username }}
+{% endblock %}
+
+{% block active %}
+    <li><a href='/profile'>profile</a></li>
+    <li class='user-active'><a href='#'>library</a></li>
+    <li><a href='/add-books'>add books</a></li>
+{% endblock %}             
+
+{% block content %}   
+<div class='content'>
+    
+    <!-- LIBRARY -->
+    {% comment %} <div class='lib-container'>
+        {% for book in user_books %}
+            <div class='lib-item'>
+                <img src={{ book.cover.url }} width='185'>
+                <p>{{ book.title }}</p>
+            </div>
+        {% endfor %}
+    </div> {% endcomment %}
+    <!-- LIBRARY FORM -->
+    <div class='lib-container'>
+        {% for book in user_book %}
+            <div class='lib-item'>
+                <a href='update/{{ book.id }}'>
+                    <img src={{ book.cover.url }} width='220' height='310' style="object-fit: cover;">
+                    <span>{{ book.title }}</span>
+                </a>
+                {% comment %} <form method='POST' action="{% url 'core:update_library' %}">
+                    {% csrf_token %}
+                    <input type='hidden' name='book_id' value='{{ book.id }}'>
+                    <button type='submit'>
+                        <img src={{ book.cover.url }} width='185'>
+                        
+                            <span>
+                                {{ book.title }}
+                            </span>
+                        
+                    </button>
+                </form> {% endcomment %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,301 @@
+/* ============================== VARIABLE ============================== */
+:root {
+    --text: #02010d;
+    --background: #f3f2fe;
+    --bgShade: #d1cfe0;
+    --primary: #322996;
+    --secondary: #185083;
+    --accent: #53c87a;
+} 
+html {
+    font-size: 16px;
+}
+/* ============================== GLOBAL ============================== */
+
+body {
+    background-color: var(--background);
+}
+* { margin: 0; padding: 0; }
+a, h1, h2, h3, h4, h5, span, p, button, input, textarea, small {
+    font-family: century-gothic, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: var(--text);
+}
+li { list-style: none; }
+button {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--background);
+    border: 2px solid var(--primary);
+}
+button:hover {
+    background: var(--primary);
+    color: var(--background);
+    transition: .5s;
+}
+.user-active {
+     border-right: 2px solid black; 
+}
+input, textarea { outline: none; }
+.primary { color: var(--primary); }
+.secondary { color: var(--secondary); }
+.accent { color: var(--accent); }
+.bold { font-weight: bolder; }
+/* ============================== INPUT ============================== */
+input, select {
+    background: var(--background);
+    /* box-shadow: none; */
+    padding: 10px 12px; 
+    border: 1px solid var(--text);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+/* ============================== NAVBAR ============================== */
+section, header {
+    width: 85%;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 40px;
+    font-size: 1.2rem; 
+    align-items: flex-end;
+    border-bottom: 6px double black;
+    margin-bottom: 30px;
+}
+.green-border:hover {
+    border-bottom: 2px solid var(--accent);
+}
+.dropdown button {
+    background: var(--background);
+    font-size: 20px;
+    border: none; 
+  }
+.dropdown button:hover {
+    border-bottom: 2px solid var(--accent);
+}
+.dropdown {
+    font-size: 20px;
+    position: relative;
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: var(--background);
+    /* min-width: 160px; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 10px 15px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+.dropdown-content a:hover {
+    border-bottom: 2px solid var(--accent);
+    background: var(--bgShade);
+}
+
+.dropdown:hover .dropdown-content {display:block;}
+/* =================================================================== */
+/* ============================== INDEX PAGE ========================= */
+/* =================================================================== */
+
+  
+/* ============================== HERO ============================== */
+.hero {
+    width: 60%;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 120px;
+    margin-bottom: 100px; 
+}
+.hero h1 {
+    font-size: 4.2vw;
+}
+.menu {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 200px;
+}
+.menu ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+/* ============================== ABOUT ============================== */
+.about {
+    background: var(--primary); 
+    border-radius: 20px; 
+    padding: 30px; 
+}
+.about p { color: var(--background); }
+.about h1 { 
+    color: var(--background);
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 50px;
+}
+.definition {
+    /* background-color: gray; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto; 
+}
+.definition img { border-radius: 5%; }
+.definition p { margin-left: 100px; }
+/* ============================== JOIN US ============================== */
+.joinus {
+    padding: 30px; 
+    background: var(--secondary);
+    text-align: center;
+    color: white; 
+    border-radius: 20px; 
+}
+.joinus p, .joinus h1, .joinus small { color: white; }
+.joinus p { margin-bottom: 20px; }
+.joinus a {
+    background: var(--bgShade);
+    padding: 10px 15px; 
+    border-radius: 20px; 
+}
+
+.search {
+    text-align: right;
+}
+
+/* =================================================================== */
+/* ============================ ADD BOOKS PAGE ======================= */
+/* =================================================================== */
+.settings h2 { margin-bottom: 20px; }
+.user {
+    display: flex;
+    margin: auto;
+    /* justify-content: space-evenly; */
+}
+.user .map { 
+    flex: 1; 
+}
+.user .map li { margin-bottom: 10px; width: 70%; }
+.user .map a { padding-right: 20px; }
+.user .content {flex: 4; }
+.user form p { margin-bottom: 20px; display: flex; width: 80%; justify-content: space-between;}
+.user form input { width: 70%; }
+
+/* =================================================================== */
+/* ============================== LIBRARY PAGE======================== */
+/* =================================================================== */
+.lib-container {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 50px;
+    column-gap: 25px;
+}
+.lib-item {
+    text-align: center;
+    max-width: 220px; 
+    cursor: pointer;
+}
+.recc .lib-item {
+    margin: auto;
+}
+.recc .lib-item {
+    text-align: center;
+    max-width: 215px; 
+    cursor: pointer;
+}
+.lib-item img {
+    border-radius: 15px;
+}
+.lib-item span { 
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.lib-item:hover {
+    filter: brightness(50%);
+    transition: all .5s;
+}
+.errorlist { display: none; }
+/* =================================================================== */
+/* ============================== UPDATE PAGE======================== */
+/* =================================================================== */
+.history {
+    width: 100%;
+    margin-bottom: 200px;
+}
+.notes { 
+    background: var(--bgShade);
+    border: 1px solid black; 
+    padding: 15px; 
+    border-radius: 20px; 
+}
+textarea {
+    width: 69%;
+    background: var(--bgShade);
+    border: 1px solid black;
+    padding: 10px;
+}
+/* =================================================================== */
+/* ============================== BOOK PAGE======================== */
+/* =================================================================== */
+
+.view-book {
+    display: flex;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.view-book-img { 
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+}
+.view-book-img img {
+    border-radius: 15px;
+}
+.view-book-desc {
+    flex: 2;
+}
+.view-book-desc p {
+    margin-bottom: 12px;
+}
+.view-book-desc .inline {
+    display: inline;
+}
+button {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--background);
+    border: 2px solid var(--primary);
+}
+button:hover {
+    background: var(--primary);
+    color: var(--background);
+    transition: .5s;
+}
+
+@media screen and (max-width: 800px) {
+    .definition {
+        display: block;
+    }
+    .definition img {
+        display: block;
+        margin: auto; 
+    }
+    .definition p {
+        margin-left: 0;
+        padding: 30px;
+    }
+}

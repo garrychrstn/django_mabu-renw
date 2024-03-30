@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+    <head>
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+            
+        <link rel="stylesheet" href="https://use.typekit.net/oov2wcw.css">  {% comment %} Source for using "Century Gothic Font {% endcomment %}
+        <link rel="stylesheet" type="text/css" href={% static 'css/base.css' %}>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <a class='green-border' href='/signup'>follow us</a>
+            <a href='/'>
+                <img src={% static 'img/mabu.png' %} height=45>
+            </a>
+            {% if user.is_authenticated %}
+                <div class='dropdown'>
+                    <button class='hover'>{{ user.username }}</button>
+                    <div class='dropdown-content'>
+                        <a href='/profile'>profile</a>
+                        <a href='/library'>library</a>
+                        <a href='/add-books'>add books</a>
+                        <a href='/logout'>logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href='/login/'>join us</a>
+            {% endif %}
+        </header>
+        {% block content %}
+        
+        {% endblock %}
+    </body>
+</html>

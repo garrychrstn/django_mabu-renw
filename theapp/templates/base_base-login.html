@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+{% load static %}
+
+
+{% block title %}
+    Join Us | Mabu
+{% endblock %}
+
+{% block content %}
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>submit</button>
+    </form>
+{% endblock %}

@@ -11,6 +11,7 @@ class Profile(models.Model):
     blacklist = models.TextField(null=True, blank=True)
     avatar = models.FileField(upload_to='avatar/', default='avatar/default-avatar.png')
     account_created = models.DateField(null=True, blank=True)
+    books = models.ManyToManyField('Series')
 
 class Series(models.Model):
     title = models.CharField(max_length=60)
@@ -24,6 +25,9 @@ class Series(models.Model):
     pub_en = models.CharField(max_length=20, null=True, blank=True)
     genre = models.CharField(max_length=110, null=True)
     desc = models.TextField(max_length=300, default='-')
+    cover = models.FileField(upload_to='cover/', default='cover/default.png', blank=True)
+    score = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2)
+
 
 class Volume(models.Model):
     uniq = models.CharField(max_length=20, primary_key=True)

@@ -1,0 +1,31 @@
+{% extends 'base_book.html' %}
+{% load static %}
+
+{% block title %}
+    Library | {{ user.username }}
+{% endblock %}
+
+{% block content %}   
+    <div class='view'>
+        <div class='view-cover'>
+            <img src={{book.cover.url}} width'270' height='360' style="object-fit: cover">
+        </div>
+        <div class='meta'>
+            <h1>{{book.title}}</h1>
+            <hr>
+            <h3>by {{book.author}}</h3>
+            <p>Status : {{book.status}}</p>
+            <p>JP Publisher : {{book.Publisher}}</p>
+            <p>EN Publisher : {{book.Publisher}}</p>
+            <p>Genre : {{book.genre}}</p>
+            <p>Description : {{book.desc}}</p>
+        </div>
+    </div>
+    <div class='details'>
+        <ul>
+        {% for v in volume %}
+            <li>{{ v.volume}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -11,7 +11,9 @@ html {
     font-size: 16px;
 }
 /* ============================== GLOBAL ============================== */
-
+img {
+    border-radius: 15px;
+}
 body {
     background-color: var(--background);
 }
@@ -70,7 +72,7 @@ header {
     margin-bottom: 30px;
 }
 .green-border:hover {
-    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
 }
 .dropdown button {
     background: var(--background);
@@ -103,7 +105,8 @@ header {
     display: block;
   }
 .dropdown-content a:hover {
-    border-bottom: 2px solid var(--accent);
+    transition: .5s;
+    margin-left: 8px;
     background: var(--bgShade);
 }
 
@@ -251,39 +254,11 @@ textarea {
 /* ============================== BOOK PAGE======================== */
 /* =================================================================== */
 
-.view-book {
+.book .view {
+    width: 80%;
     display: flex;
-    margin: auto;
     justify-content: space-evenly;
-}
-
-.view-book-img { 
-    flex: 1; 
-    display: flex;
-    justify-content: center;
-}
-.view-book-img img {
-    border-radius: 15px;
-}
-.view-book-desc {
-    flex: 2;
-}
-.view-book-desc p {
-    margin-bottom: 12px;
-}
-.view-book-desc .inline {
-    display: inline;
-}
-button {
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: var(--background);
-    border: 2px solid var(--primary);
-}
-button:hover {
-    background: var(--primary);
-    color: var(--background);
-    transition: .5s;
+    margin: auto;
 }
 
 @media screen and (max-width: 800px) {

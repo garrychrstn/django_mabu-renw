@@ -30,7 +30,7 @@ def index(response):
         filtered_queryset = Series.objects.filter(combined_pref)
         recc = filtered_queryset.exclude(pk__in=added.values_list('pk', flat=True))
         randomed = list(recc)
-        ran_rec = random.sample(randomed, 2)
+        ran_rec = random.sample(randomed, 5)
 
         print(added)
         print(f"user id : {user.id}")
@@ -85,6 +85,10 @@ def library(request):
     }
     return render(request, 'base_user-library.html', context)
 
+def  view_book(request, id):
+    book = Series.objects.get(pk=id)
+    volume = book.volume_set.all()
+    return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume})
 
 def login_request(request):
     if request.method == 'POST':

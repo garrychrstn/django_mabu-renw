@@ -25,5 +25,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('join', views.login_request, name='join'),
     path('profile', views.profile, name='user_profile'),
-    path('library', views.library, name='user_library')
+    path('library', views.library, name='user_library'),
+    path('series/<int:id>', views.view_book, name='view_book')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

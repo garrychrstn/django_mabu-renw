@@ -11,21 +11,52 @@
             <img src={{book.cover.url}} width'270' height='360' style="object-fit: cover">
         </div>
         <div class='meta'>
-            <h1>{{book.title}}</h1>
+            <h1 style="font-size: 2.5em;">{{book.title}}</h1>
             <hr>
+            <br>
             <h3>by {{book.author}}</h3>
+            <br>
             <p>Status : {{book.status}}</p>
-            <p>JP Publisher : {{book.Publisher}}</p>
-            <p>EN Publisher : {{book.Publisher}}</p>
-            <p>Genre : {{book.genre}}</p>
-            <p>Description : {{book.desc}}</p>
+            <p>JP Publisher : {{book.pub_jp}}</p>
+            <p>EN Publisher : {{book.pub_en}}</p>
+            <p>Genre : 
+                {% for g in genres %}
+                    <a href='/genres/{g}'>{{ g }},</a>
+                {% endfor %}
+            </p>
+            <p> Description : {{book.desc}}</p>
         </div>
     </div>
+    <br>
+    <br>
     <div class='details'>
-        <ul>
-        {% for v in volume %}
-            <li>{{ v.volume}}</li>
-        {% endfor %}
-        </ul>
+        <div>
+            <h3>Genres</h3>
+            {% for g in genres %}
+                <a href='#'>{{ g }}</a>
+            {% endfor %}
+        </div>
+        <div>
+            <h3>Rating</h3>
+            <p>4.5</p>
+        </div>
+        <div>
+            <button>Add to Library</button>
+        </div>
+    </div>
+    <div class='volumes'>
+        <table>
+            <thead>
+                <th>Volume</th>
+                <th>Release Data</th>
+                <th>Read</th>
+            </thead>
+            <tbody>
+                {% for v in volume %}
+                <tb>{{ v }}</tb>
+                <tb
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

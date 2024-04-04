@@ -24,7 +24,7 @@ class Series(models.Model):
     pub_jp = models.CharField(max_length=20, null=True, blank=True)
     pub_en = models.CharField(max_length=20, null=True, blank=True)
     genre = models.CharField(max_length=110, null=True)
-    desc = models.TextField(max_length=300, default='-')
+    desc = models.TextField(max_length=500, default='-')
     cover = models.FileField(upload_to='cover/', default='cover/default.png', blank=True)
     score = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2)
 
@@ -33,8 +33,9 @@ class Volume(models.Model):
     uniq = models.CharField(max_length=20, primary_key=True)
     title = models.ForeignKey('Series', on_delete=models.CASCADE, blank=True, null=True)
     volume = models.IntegerField()
-    synopsis = models.TextField(max_length=100)
+    synopsis = models.TextField(max_length=500)
     status = models.BooleanField(default=False)
+    pub_date = models.DateField(null=True, blank=True)
 
 class Note(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)

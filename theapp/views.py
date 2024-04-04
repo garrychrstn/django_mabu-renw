@@ -88,7 +88,10 @@ def library(request):
 def  view_book(request, id):
     book = Series.objects.get(pk=id)
     volume = book.volume_set.all()
-    return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume})
+    genres = book.genre
+    genres = genres.replace(" ", "")
+    genres = genres.split(",")
+    return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres})
 
 def login_request(request):
     if request.method == 'POST':

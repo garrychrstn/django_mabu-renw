@@ -254,11 +254,36 @@ textarea {
 /* ============================== BOOK PAGE======================== */
 /* =================================================================== */
 
+.book {
+    font-size: 16px;
+}
+.book .view .view-cover {
+    padding: 10px 45px;
+}
+.book .meta h1 { font-size: ; font-weight: bolder; }
 .book .view {
     width: 80%;
     display: flex;
     justify-content: space-evenly;
     margin: auto;
+}
+.book .meta p {
+    line-height: 25px;
+}
+.book .details {
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    width: 75%;
+}
+.book .volumes {
+    width: 72%;
+    margin: auto;
+    font-size: 1.5em;
+}
+.book .volumes li {
+    padding: 10px 30px;
+    border: 1px solid black;
 }
 
 @media screen and (max-width: 800px) {

@@ -105,7 +105,7 @@ def view_book(request, id):
         else:
             profile.books.add(book)
         messages.success(request, "Added to library")
-        return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres})
+        return redirect("theapp:view_book", id=id)
     else:
         status =  checkBookLibrary(profile, book)
         return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status})

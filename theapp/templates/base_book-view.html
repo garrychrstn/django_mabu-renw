@@ -41,7 +41,7 @@
             <p>4.5</p>
         </div>
         <div>
-            <form method='POST'>
+            <form method='POST' action= {% url 'theapp:view_book' id=book.pk %}>
                 {% csrf_token %}
                 {% if status %}    
                     <button class='remove' type='submit'>Remove</button>
@@ -72,7 +72,11 @@
                 <tr>
                     <td>Volume {{ v.volume }}</td>
                     <td>{{ v.pub_date }}</td>
-                    <td>{{ v.status }}</td>
+                    {% if v.status %}
+                    <td>Read</td>
+                    {% else %}
+                    <td>Not read</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

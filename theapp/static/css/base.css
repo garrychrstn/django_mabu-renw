@@ -288,6 +288,10 @@ textarea {
     margin: auto;
     width: 75%;
 }
+.book .details div {
+    text-align: center;
+    margin: auto;
+}
 .book .volumes {
     width: 72%;
     margin: auto;
@@ -307,6 +311,9 @@ textarea {
     border-bottom: 1px solid black;
     padding: 5px 10px;
     text-align: center;
+}
+.book table td {
+    font-size: 18px;    
 }
 
 @media screen and (max-width: 800px) {

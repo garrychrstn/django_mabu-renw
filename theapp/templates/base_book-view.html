@@ -33,7 +33,7 @@
         <div>
             <h3>Genres</h3>
             {% for g in genres %}
-                <a href='#'>{{ g }}</a>
+                <a href='#'>{{ g }},</a>
             {% endfor %}
         </div>
         <div>
@@ -41,12 +41,26 @@
             <p>4.5</p>
         </div>
         <div>
-            <button>Add to Library</button>
+            <form method='POST'>
+                {% csrf_token %}
+                {% if status %}    
+                    <button class='remove' type='submit'>Remove</button>
+                {% else %}
+                    <button class='add' type='submit'>Add to Library</button>
+                {% endif %}
+            </form>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
     </div>
     <br><br>
     <div class='volumes'>
-        <h2>List of available volumes</h2>
+        <h3>List of available volumes</h3>
         <br>
         <table>
             <tr>

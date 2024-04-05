@@ -13,6 +13,12 @@ from . models import *
 import random
 # Create your views here.
 
+def checkBookLibrary(profile, book):
+    if book in profile.books.all():
+        return True
+    else:
+        return False
+
 def index(response):
     user = None
     if response.user.is_authenticated:
@@ -85,13 +91,24 @@ def library(request):
     }
     return render(request, 'base_user-library.html', context)
 
-def  view_book(request, id):
+def view_book(request, id):
+    user = request.user
+    profile = user.profile
     book = Series.objects.get(pk=id)
     volume = book.volume_set.all()
     genres = book.genre
     genres = genres.replace(" ", "")
     genres = genres.split(",")
-    return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres})
+    if request.method == 'POST':
+        if checkBookLibrary(profile, book):
+            profile.books.remove(book)
+        else:
+            profile.books.add(book)
+        messages.success(request, "Added to library")
+        return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres})
+    else:
+        status =  checkBookLibrary(profile, book)
+        return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status})
 
 def login_request(request):
     if request.method == 'POST':

@@ -44,19 +44,25 @@
             <button>Add to Library</button>
         </div>
     </div>
+    <br><br>
     <div class='volumes'>
+        <h2>List of available volumes</h2>
+        <br>
         <table>
-            <thead>
+            <tr>
                 <th>Volume</th>
                 <th>Release Data</th>
                 <th>Read</th>
-            </thead>
-            <tbody>
-                {% for v in volume %}
-                <tb>{{ v }}</tb>
-                <tb
-                {% endfor %}
-            </tbody>
+            </tr>
+            {% for v in volume %}
+                <tr>
+                    <td>Volume {{ v.volume }}</td>
+                    <td>{{ v.pub_date }}</td>
+                    <td>{{ v.status }}</td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
 {% endblock %}
+<br><br>
+<hr><hr>

@@ -26,3 +26,7 @@ class SetProfile(forms.ModelForm):
         model = Profile
         exclude = ['account_created', 'username', 'books']
 
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = ['note']

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from datetime import date, timezone, datetime
@@ -18,7 +18,12 @@ def checkBookLibrary(profile, book):
         return True
     else:
         return False
-
+def checkStatus(book):
+    if book.status == "ON-GOING":
+        return True
+    else:
+        return False
+    
 def index(response):
     user = None
     if response.user.is_authenticated:
@@ -84,12 +89,31 @@ def library(request):
     user = request.user
     p = user.profile
     user_book = p.books.all()
-    print(user_book)
     context = {
         'user' : user,
         'user_book' : user_book
     }
     return render(request, 'base_user-library.html', context)
+
+@login_required
+def update(request, id):
+    user = request.user
+    p = user.profile
+    book = Series.objects.get(pk=id)
+    if request.method == "POST":
+        form = NoteForm(request.POST, instance=p)
+        if form.is_valid():
+            form.save()
+        messages.success(request, "Note added")
+        return redirect("theapp:update", id=id)
+    else:
+        form = NoteForm()
+
+    context = {
+        'user' : user,
+        'form' : form,  
+    }
+    return render(request, "base_book-update.html", context)
 
 def view_book(request, id):
     user = request.user
@@ -97,18 +121,19 @@ def view_book(request, id):
     book = Series.objects.get(pk=id)
     volume = book.volume_set.all()
     genres = book.genre
-    genres = genres.replace(" ", "")
     genres = genres.split(",")
     if request.method == 'POST':
         if checkBookLibrary(profile, book):
             profile.books.remove(book)
+            messages.success(request, "Removed from library")
         else:
             profile.books.add(book)
-        messages.success(request, "Added to library")
+            messages.success(request, "Added to library")
         return redirect("theapp:view_book", id=id)
     else:
+        seriesStatus = checkStatus(book)
         status =  checkBookLibrary(profile, book)
-        return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status})
+        return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status, 'seriesStatus' : seriesStatus})
 
 def login_request(request):
     if request.method == 'POST':
@@ -131,3 +156,5 @@ def login_request(request):
         form = AuthenticationForm()
 
     return render(request, 'base_base-login.html', {'form' : form})       
+def logout_view(request):
+    logout(request)

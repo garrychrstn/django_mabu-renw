@@ -48,9 +48,9 @@
             <form method='POST' action= {% url 'theapp:view_book' id=book.pk %}>
                 {% csrf_token %}
                 {% if status %}    
-                    <button class='remove' type='submit'>Remove</button>
+                    <button class='remove' type='submit' name='lib-form'>Remove</button>
                 {% else %}
-                    <button class='add' type='submit'>Add to Library</button>
+                    <button class='add' type='submit' name='lib-form'>Add to Library</button>
                 {% endif %}
             </form>
             {% if messages %}
@@ -62,8 +62,36 @@
             {% endif %}
         </div>
     </div>
-    <br><br>
+    <br>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    {% for v in volume %}
+    <div class="modal fade" id="{{ v.uniq }}-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <form method='POST' action={% url 'theapp:view_book_update' id=book.pk %}>
+                    {% csrf_token %}
+                    <input type='hidden' name='pk' value='{{ v.uniq }}'>
+                    {{ form }}
+                    <button type='submit' name='note-form'>submit</button>
+                </form>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <br>
     <div class='volumes'>
+                   
         <h3>List of available volumes</h3>
         <br>
         <table>
@@ -79,7 +107,7 @@
                 {% if v.status %}
                 <td>
                     <input type='checkbox' checked>
-                    <a href='#'><i class="fa-solid fa-pencil"></i></a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ v.uniq }}-modal"><i class="fa-solid fa-pencil"></i></button>
                 </td>
                 {% else %}
                 <td>

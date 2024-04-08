@@ -11,6 +11,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from . forms import *
 from . models import *
 import random
+from django.urls import reverse_lazy
+from bootstrap_modal_forms.generic import (
+    BSModalCreateView,
+    BSModalUpdateView,
+)
 # Create your views here.
 
 def checkBookLibrary(profile, book):
@@ -115,6 +120,13 @@ def update(request, id):
     }
     return render(request, "base_book-update.html", context)
 
+class NoteCreateView(BSModalCreateView):
+    template_name = 'pop_up-note.html'
+    form_class = NoteForm
+    success_message = 'Success : Note added'
+    success_url = reverse_lazy('index')
+
+
 def view_book(request, id):
     user = request.user
     profile = user.profile
@@ -142,18 +154,33 @@ def view_book_update(request, id):
     volume = book.volume_set.all()
     genres = book.genre
     genres = genres.split(",")
+    
     if request.method == 'POST':
-        if checkBookLibrary(profile, book):
-            profile.books.remove(book)
-            messages.success(request, "Removed from library")
-        else:
-            profile.books.add(book)
-            messages.success(request, "Added to library")
-        return redirect("theapp:view_book", id=id)
+        if 'note-form' in request.POST:
+            form = NoteForm(request.POST)
+            if form.is_valid():
+                note = form.cleaned_data['note']
+                idd = request.POST.get('pk')
+                v = Volume.objects.get(uniq=idd)
+                newNote = Note(profile=profile, volume=v, note=note)
+                newNote.save()
+
+                messages.success(request, "Note added")
+            return redirect("theapp:view_book_update", id=id)
+
+        if 'lib-form' in request.POST:
+            if checkBookLibrary(profile, book):
+                profile.books.remove(book)
+                messages.success(request, "Removed from library")
+            else:
+                profile.books.add(book)
+                messages.success(request, "Added to library")
+            return redirect("theapp:view_book_update", id=id)
     else:
+        form = NoteForm()
         seriesStatus = checkStatus(book)
         status =  checkBookLibrary(profile, book)
-        return render(request, 'base_book-update.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status, 'seriesStatus' : seriesStatus})
+        return render(request, 'base_book-update.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status, 'seriesStatus' : seriesStatus, 'form' : form})
 
 def login_request(request):
     if request.method == 'POST':

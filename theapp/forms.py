@@ -4,7 +4,15 @@ from . choices import *
 from django.forms import inlineformset_factory, formset_factory, ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from bootstrap_modal_forms.forms import BSModalModelForm
 
+class NoteModelForm(BSModalModelForm):
+    class Meta:
+        model = Note
+        exclude = ['profile', 'volume']
+        
 
 
 class UserProfile(forms.ModelForm):

@@ -324,6 +324,10 @@ textarea {
     padding: 6px;
     
 }
+.volumes .note-view {
+    text-align: left;
+    background: var(--bgShade);
+}
 
 @media screen and (max-width: 800px) {
     .definition {

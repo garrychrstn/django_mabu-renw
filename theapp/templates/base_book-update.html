@@ -116,6 +116,13 @@
                 </td>
                 {% endif %}
             </tr>
+            {% for note in v.note_set.all %}
+            <tr>
+                <td class='note-view' colspan='3'>
+                {{ note.note }}
+                </td>
+            </tr>
+            {% endfor %}
             {% endfor %}
         </table>
     </div>

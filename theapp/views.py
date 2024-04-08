@@ -152,6 +152,10 @@ def view_book_update(request, id):
     profile = user.profile
     book = Series.objects.get(pk=id)
     volume = book.volume_set.all()
+    # vis = []
+    # for v in volume:
+    #     vis.append(v.uniq)
+        
     genres = book.genre
     genres = genres.split(",")
     
@@ -177,10 +181,23 @@ def view_book_update(request, id):
                 messages.success(request, "Added to library")
             return redirect("theapp:view_book_update", id=id)
     else:
+        # data = {
+        #     'note' : 
+        # }
+        # notes = 
         form = NoteForm()
         seriesStatus = checkStatus(book)
         status =  checkBookLibrary(profile, book)
-        return render(request, 'base_book-update.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status, 'seriesStatus' : seriesStatus, 'form' : form})
+        context = {
+            'book' : book,
+            'volume' : volume,
+            'genres' : genres,
+            'status' : status,
+            'seriesStatus' : seriesStatus,
+            'form' : form,
+            # ''
+        }
+        return render(request, 'base_book-update.html', context)
 
 def login_request(request):
     if request.method == 'POST':

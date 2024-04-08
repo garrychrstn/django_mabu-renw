@@ -320,6 +320,10 @@ textarea {
 .book table td {
     font-size: 18px;    
 }
+.book td input {
+    padding: 6px;
+    
+}
 
 @media screen and (max-width: 800px) {
     .definition {

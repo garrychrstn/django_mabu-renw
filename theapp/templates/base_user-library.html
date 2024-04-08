@@ -27,7 +27,7 @@
     <div class='lib-container'>
         {% for book in user_book %}
             <div class='lib-item'>
-                <a href='update/{{ book.id }}'>
+                <a href='library/update/{{ book.id }}'>
                     <img src={{ book.cover.url }} width='220' height='310' style="object-fit: cover;">
                     <span>{{ book.title }}</span>
                 </a>

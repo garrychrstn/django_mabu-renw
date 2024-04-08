@@ -73,15 +73,21 @@
                 <th>Read</th>
             </tr>
             {% for v in volume %}
-                <tr>
-                    <td>Volume {{ v.volume }}</td>
-                    <td>{{ v.pub_date }}</td>
-                    {% if v.status %}
-                    <td>Read</td>
-                    {% else %}
-                    <td>Not read</td>
-                    {% endif %}
-                </tr>
+            <tr>
+                <td>Volume {{ v.volume }}</td> 
+                <td>{{ v.pub_date }}</td>
+                {% if v.status %}
+                <td>
+                    <input type='checkbox' checked>
+                    <a href='#'><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                {% else %}
+                <td>
+                    <input type='checkbox'>
+                    <a href='#'><i class="fa-solid fa-pencil"></i></a>
+                </td>
+                {% endif %}
+            </tr>
             {% endfor %}
         </table>
     </div>

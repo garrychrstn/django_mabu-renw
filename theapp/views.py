@@ -134,6 +134,26 @@ def view_book(request, id):
         seriesStatus = checkStatus(book)
         status =  checkBookLibrary(profile, book)
         return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status, 'seriesStatus' : seriesStatus})
+    
+def view_book_update(request, id):
+    user = request.user
+    profile = user.profile
+    book = Series.objects.get(pk=id)
+    volume = book.volume_set.all()
+    genres = book.genre
+    genres = genres.split(",")
+    if request.method == 'POST':
+        if checkBookLibrary(profile, book):
+            profile.books.remove(book)
+            messages.success(request, "Removed from library")
+        else:
+            profile.books.add(book)
+            messages.success(request, "Added to library")
+        return redirect("theapp:view_book", id=id)
+    else:
+        seriesStatus = checkStatus(book)
+        status =  checkBookLibrary(profile, book)
+        return render(request, 'base_book-update.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status, 'seriesStatus' : seriesStatus})
 
 def login_request(request):
     if request.method == 'POST':

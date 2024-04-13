@@ -28,7 +28,6 @@ class Series(models.Model):
     cover = models.FileField(upload_to='cover/', default='cover/default.png', blank=True)
     score = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2)
 
-
 class Volume(models.Model):
     uniq = models.CharField(max_length=20, primary_key=True)
     title = models.ForeignKey('Series', on_delete=models.CASCADE, blank=True, null=True)

@@ -38,3 +38,8 @@ class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ['note']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['review', 'score']

@@ -1,21 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from datetime import date, timezone, datetime
-# from .forms import *
-from django.db.models import Prefetch, Q
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+from django.db.models import Sum, Count
 from . forms import *
 from . models import *
 import random
-from django.urls import reverse_lazy
-from bootstrap_modal_forms.generic import (
-    BSModalCreateView,
-    BSModalUpdateView,
-)
 # Create your views here.
 
 def checkBookLibrary(profile, book):
@@ -120,13 +112,6 @@ def update(request, id):
     }
     return render(request, "base_book-update.html", context)
 
-class NoteCreateView(BSModalCreateView):
-    template_name = 'pop_up-note.html'
-    form_class = NoteForm
-    success_message = 'Success : Note added'
-    success_url = reverse_lazy('index')
-
-
 def view_book(request, id):
     user = request.user
     profile = user.profile
@@ -180,12 +165,35 @@ def view_book_update(request, id):
                 profile.books.add(book)
                 messages.success(request, "Added to library")
             return redirect("theapp:view_book_update", id=id)
+        
+        if 'rev-form' in request.POST:
+            revForm = ReviewForm(request.POST)
+            if revForm.is_valid():
+                review = revForm.cleaned_data['review']
+                score = revForm.cleaned_data['score']
+                series = request.POST.get('series')
+                pr = request.POST.get('profile')
+                
+                p = Profile.objects.get(pk=pr)
+                s = Series.objects.get(pk=series)
+                newRev = Review(profile=p, series=s, review=review, score=score)
+                newRev.save()
+
+                aggregates = book.review_set.aggregate(
+                    total_score = Sum('score'),
+                    review_count = Count('id')
+                )
+                if aggregates['review_count'] > 0:
+                    book.score = aggregates['total_score'] / aggregates['review_count']
+                else:
+                    book.score = None
+                book.save()
+
+                messages.success(request, "Review added")
+            return redirect("theapp:view_book_update", id=id)
     else:
-        # data = {
-        #     'note' : 
-        # }
-        # notes = 
         form = NoteForm()
+        revForm = ReviewForm()
         seriesStatus = checkStatus(book)
         status =  checkBookLibrary(profile, book)
         context = {
@@ -195,6 +203,8 @@ def view_book_update(request, id):
             'status' : status,
             'seriesStatus' : seriesStatus,
             'form' : form,
+            'revForm' : revForm,
+            'profile' : profile,
             # ''
         }
         return render(request, 'base_book-update.html', context)

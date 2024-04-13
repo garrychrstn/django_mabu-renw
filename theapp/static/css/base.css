@@ -328,6 +328,17 @@ textarea {
     text-align: left;
     background: var(--bgShade);
 }
+.modal-content form {
+}
+.modal-content label {
+    display: none;
+}
+.model-content textarea {
+    margin: auto;
+    display: block;
+    width: 100%:
+    padding: 10px 20px;
+}
 
 @media screen and (max-width: 800px) {
     .definition {

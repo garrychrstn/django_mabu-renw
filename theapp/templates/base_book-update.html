@@ -70,7 +70,11 @@
             {% else %}
                 <p>Empty</p>
             {% endif %}
+            {% if checkReview %}
+                <p>You have review this series</p>
+            {% else %}
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#review">Give Review</button>
+            {% endif %}
         </div>
         <div>
             <form method='POST' action= {% url 'theapp:view_book' id=book.pk %}>

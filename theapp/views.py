@@ -15,6 +15,7 @@ def checkBookLibrary(profile, book):
         return True
     else:
         return False
+    
 def checkStatus(book):
     if book.status == "ON-GOING":
         return True
@@ -137,13 +138,10 @@ def view_book_update(request, id):
     profile = user.profile
     book = Series.objects.get(pk=id)
     volume = book.volume_set.all()
-    # vis = []
-    # for v in volume:
-    #     vis.append(v.uniq)
-        
     genres = book.genre
     genres = genres.split(",")
-    
+    checkReview = Review.objects.filter(profile=profile, series=book).exists()
+
     if request.method == 'POST':
         if 'note-form' in request.POST:
             form = NoteForm(request.POST)
@@ -205,6 +203,7 @@ def view_book_update(request, id):
             'form' : form,
             'revForm' : revForm,
             'profile' : profile,
+            'checkReview' : checkReview,
             # ''
         }
         return render(request, 'base_book-update.html', context)

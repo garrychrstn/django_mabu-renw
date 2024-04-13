@@ -68,10 +68,10 @@
             {% if book.score %}
                 <p>{{ book.score }}</p>
             {% else %}
-                <p>Empty</p>
+                <p>N / A</p>
             {% endif %}
             {% if checkReview %}
-                <p>You have review this series</p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#review">Edit your review</button>
             {% else %}
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#review">Give Review</button>
             {% endif %}

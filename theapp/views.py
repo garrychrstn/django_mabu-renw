@@ -174,8 +174,14 @@ def view_book_update(request, id):
                 
                 p = Profile.objects.get(pk=pr)
                 s = Series.objects.get(pk=series)
-                newRev = Review(profile=p, series=s, review=review, score=score)
-                newRev.save()
+                if checkReview:
+                    rev = Review.objects.get(profile=p, series=s)
+                    rev.review = review
+                    rev.score = score
+                    rev.save()
+                else:
+                    newRev = Review(profile=p, series=s, review=review, score=score)
+                    newRev.save()
 
                 aggregates = book.review_set.aggregate(
                     total_score = Sum('score'),

@@ -216,24 +216,46 @@ def view_book_update(request, id):
 
 def login_request(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        if 'login' in request.POST:
+            form = AuthenticationForm(request, data=request.POST)
 
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"you are logged as {username}")
-                return redirect("theapp:index")
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.info(request, f"you are logged as {username}")
+                    return redirect("theapp:index")
+                else:
+                    messages.error(request, "Invalid username or password")
+                
             else:
                 messages.error(request, "Invalid username or password")
-            
-        else:
-            messages.error(request, "Invalid username or password")
+        if 'register' in request.POST:
+            registerForm = Register(request.POST)
+            profileForm = SetProfile(request.POST)
+            if registerForm.is_valid() and profileForm.is_valid():
+                username = registerForm.cleaned_data['username']
+                password = registerForm.cleaned_data['password1']
+                preference = profileForm.cleaned_data['preference']
+                blacklist = profileForm.cleaned_data['blacklist']
+                registerForm.save()
+
+                user = authenticate(request, username=username, password=password)
+                u = User.objects.get(username=username)
+                p = Profile(username=u, preference=preference, blacklist=blacklist)
+                p.save()
+                if user is not None:
+                    login(request, user)
+                    return redirect('theapp:index')
+                
     else:
         form = AuthenticationForm()
+        registerForm = Register()
+        profileForm = SetProfile()
 
-    return render(request, 'base_base-login.html', {'form' : form})       
+    return render(request, 'base_base-login.html', {'form' : form, 'registerForm' : registerForm, 'profileForm' : profileForm})
+
 def logout_view(request):
     logout(request)

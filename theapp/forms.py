@@ -1,10 +1,8 @@
 from django import forms
 from . models import *
 from . choices import *
-from django.forms import inlineformset_factory, formset_factory, ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from bootstrap_modal_forms.forms import BSModalModelForm
 
@@ -43,3 +41,13 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['review', 'score']
+
+class Register(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
+
+class SetProfile(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['preference', 'blacklist']

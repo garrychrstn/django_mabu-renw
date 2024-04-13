@@ -7,9 +7,22 @@
 {% endblock %}
 
 {% block content %}
+<div class='account'>
     <form method='POST'>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type='submit'>submit</button>
+        <button type='submit' name='login'>login</button>
     </form>
+</div>
+<br>
+<br>
+<h3 class='account'>OR REGISTER</h3>
+<div class='account'>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ registerForm.as_p }}
+        {{ profileForm.as_p }}
+        <button type='submit' name='register'>register</button>
+    </form>
+</div>
 {% endblock %}

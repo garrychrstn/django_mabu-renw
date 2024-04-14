@@ -130,6 +130,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LOGIN_URL = 'theapp:login'
+LOGIN_URL = 'theapp:join'
 LOGIN_REDIRECT_URL = '/index/'
 LOGOUT_REDIRECT_URL = 'theapp:index'

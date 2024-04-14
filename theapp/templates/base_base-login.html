@@ -8,6 +8,7 @@
 
 {% block content %}
 <div class='account'>
+    <h3>Login</h3>
     <form method='POST'>
         {% csrf_token %}
         {{ form.as_p }}
@@ -16,7 +17,7 @@
 </div>
 <br>
 <br>
-<h3 class='account'>OR REGISTER</h3>
+<h3 class='account'>Register</h3>
 <div class='account'>
     <form method='POST'>
         {% csrf_token %}

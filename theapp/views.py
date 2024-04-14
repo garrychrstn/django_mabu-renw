@@ -132,7 +132,8 @@ def view_book(request, id):
         seriesStatus = checkStatus(book)
         status =  checkBookLibrary(profile, book)
         return render(request, 'base_book-view.html', {'book' : book, 'volume' : volume, 'genres' : genres, 'status' : status, 'seriesStatus' : seriesStatus})
-    
+
+@login_required    
 def view_book_update(request, id):
     user = request.user
     profile = user.profile
